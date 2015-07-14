@@ -1,0 +1,24 @@
+<launch>
+  <arg name="spacing" default="0.4" />
+  <arg name="wifi_device" default="wlan0" />
+  <arg name="map_file"/>
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch">
+    <arg name="rgb_processing" value="false" />
+    <arg name="depth_registration" value="false" />
+    <arg name="depth_processing" value="false" />
+    
+    <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
+         Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 --> 
+    <arg name="scan_topic" value="/scan" />
+  </include>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="false" output="screen" />
+  <node name="heatmap_client" pkg="heatmap" type="heatmap_client" respawn="false" output="screen"/>
+  <node name="path_planner" pkg="heatmap" type="path_planner.py" respawn="false" output="screen" >
+    <param name="coverage_spacing" value="$(arg spacing)" />
+  </node>
+  <include file="$(find heatmap)/move_base_config/move_base.launch.xml"/>
+  <include file="$(find heatmap)/move_base_config/amcl.launch.xml"/> 
+  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find heatmap)/heatmap.rviz" respawn="false" />-->
+  <node name="signal" pkg="heatmap" type="signal" args="$(arg wifi_device)" output="screen" />
+</launch>
