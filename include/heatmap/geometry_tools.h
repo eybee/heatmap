@@ -1,5 +1,5 @@
-/* Original work Copyright Paul Bovbel
- * Modified work Copyright 2015 Institute of Digital Communication Systems - Ruhr-University Bochum
+/* Original work copyright Paul Bovbel
+ * Modified work copyright 2015 Institute of Digital Communication Systems - Ruhr-University Bochum
  * Modified by: Adrian Bauer
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of
