@@ -16,8 +16,6 @@ find_package(catkin REQUIRED COMPONENTS
   costmap_2d
 )
 
-find_package(Boost REQUIRED)
-
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -89,7 +87,6 @@ catkin_package(
 #  LIBRARIES heatmap
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime costmap_2d
   DEPENDS 
-  Boost
 )
 
 ###########
@@ -100,7 +97,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
 )
 
 link_directories(lib)
@@ -115,7 +112,7 @@ add_executable(signal_sim src/signal_sim.cpp)
 
 add_executable(goal_measure src/goal_measure.cpp)
 
-add_executable(points_to_polygon src/points_to_polygon.cpp)
+add_executable(heatmap_client src/heatmap_client.cpp)
 
 add_executable(distance_measure src/distance_measure.cpp)
 
@@ -131,7 +128,7 @@ target_link_libraries(signal_sim ${catkin_LIBRARIES})
 
 target_link_libraries(goal_measure ${catkin_LIBRARIES})
 
-target_link_libraries(points_to_polygon ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(heatmap_client ${catkin_LIBRARIES})
 
 target_link_libraries(distance_measure ${catkin_LIBRARIES})
 
@@ -144,31 +141,49 @@ target_link_libraries(distance_measure ${catkin_LIBRARIES})
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(PROGRAMS
+  src/path_planner.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY src/automow_planning/
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/automow_planning
+)
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS heatmap heatmap_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+install(TARGETS signal signal_sim goal_measure heatmap_client distance_measure
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
+install(DIRECTORY include/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  FILES_MATCHING PATTERN "*.h"
+  PATTERN ".svn" EXCLUDE
+)
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
+install(DIRECTORY lib/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/lib
+)
+
+install(DIRECTORY move_base_config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/move_base_config
+)
+
+install(DIRECTORY stage_config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/stage_config
+)
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
+install(FILES
+  heatmap_sim.rviz
+  heatmap.rviz
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 #############
 ## Testing ##

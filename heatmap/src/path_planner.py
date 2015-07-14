@@ -1,6 +1,22 @@
 #!/usr/bin/env python
 
 """
+/* Original work Team '"Moe" The Autonomous Lawnmower' - Auburn University
+ * Modified work Copyright 2015 Institute of Digital Communication Systems - Ruhr-University Bochum
+ * Modified by: Adrian Bauer
+ *
+ * This program is free software; you can redistribute it and/or modify it under the terms of
+ * the GNU General Public License as published by the Free Software Foundation;
+ * either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program;
+ * if not, see <http://www.gnu.org/licenses/>.
+ *
+ * This file is a modified version of the original file taken from the au_automow_common ROS stack
+ **/
+
 This ROS node is responsible for planning a path.
 
 This node takes the field shape as a geometry_msgs/PolygonStamped
@@ -38,14 +54,14 @@ class PathPlannerNode(object):
         rospy.init_node('path_planner')
 
         # ROS params
-        self.cut_spacing = rospy.get_param("~cut_spacing", 0.5)
+        self.cut_spacing = rospy.get_param("~coverage_spacing", 0.5)
 
         # Setup publishers and subscribers
-        rospy.Subscriber('/field/cut_area', PolygonStamped, self.field_callback)
+        rospy.Subscriber('heatmap_area', PolygonStamped, self.field_callback)
         self.path_marker_pub = rospy.Publisher('visualization_marker',
                                                MarkerArray,
                                                latch=True)
-        rospy.Subscriber('/odom', Odometry, self.odom_callback)
+        rospy.Subscriber('odom', Odometry, self.odom_callback)
 
         # Setup initial variables
         self.field_shape = None
@@ -60,7 +76,7 @@ class PathPlannerNode(object):
         self.testing = False
         self.current_distance = None
         self.previous_destination = None
-        self.clear_costmaps = rospy.ServiceProxy('/move_base/clear_costmaps', Empty)
+        self.clear_costmaps = rospy.ServiceProxy('move_base/clear_costmaps', Empty)
         self.just_reset = False
         self.timeout = False
 
@@ -408,7 +424,6 @@ class PathPlannerNode(object):
                 from math import floor
                 count = 0
                 self.move_base_client.wait_for_result()
-                rospy.loginfo("%d", self.move_base_client.get_state())
                 if self.timeout == True:
                     if count == 6+int(self.current_distance*4):
                         rospy.logwarn("Path Planner: move_base goal timeout occurred, clearing costmaps")
@@ -427,7 +442,6 @@ class PathPlannerNode(object):
                             self.path_status[current_waypoint_index] = 'visited'
                         return True
                 self.path_status[current_waypoint_index] = 'visited'
-                rospy.loginfo("visited!")
         return True
 
 if __name__ == '__main__':

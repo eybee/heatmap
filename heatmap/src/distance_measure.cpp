@@ -28,7 +28,7 @@
 namespace heatmap
 {
 /**
-* @brief Node that requests WIFI signals based on the distance travelled by the robot, visualises them via RViz
+* @brief Node that requests WIFI signals based on the distance traveled by the robot, visualises them via RViz
 * and provides the possibility to run an interpolation to get a dense map from it
 */
 class DistanceMeasure
@@ -50,7 +50,7 @@ private:
   * @param signal Signal to convert
   * @return Value between 0 and 1 representing the signal quality, 0 means really bad, 1 means really good
   */
-  double convertSignalToColor(heatmap::wifi_signal signal)
+  double convertSignalToColor(heatmap::wifi_signal& signal)
   {
     double color;
 
@@ -68,7 +68,7 @@ private:
   * @param pos The position of the marker on the map
   * @return A marker
   */
-  visualization_msgs::Marker prepareSphereMarker(double color_g, double sphere_size, tf::Vector3 pos)
+  visualization_msgs::Marker prepareSphereMarker(double color_g, double sphere_size, tf::Vector3& pos)
   {
     visualization_msgs::Marker marker;
 
@@ -115,8 +115,8 @@ private:
   * @param shepard_power Determines how strong the distance between points is weighted. For more information read the wikipedia article
   * @return List of interpolated data
   */
-  std::vector<double> interpolateAndVisualize(std::vector<geometry_msgs::Point32> measure_points,
-                                              std::vector<int> measure_data, geometry_msgs::Polygon poly,
+  std::vector<double> interpolateAndVisualize(std::vector<geometry_msgs::Point32>& measure_points,
+                                              std::vector<int>& measure_data, geometry_msgs::Polygon& poly,
                                               double interpolation_spacing, double shepard_power)
   {
     std::vector<geometry_msgs::Point32> interpolation_points;
@@ -199,7 +199,7 @@ public:
     visualization_msgs::Marker mark;
 
     ros::Rate rate(5.0);
-    ros::Subscriber polygon_sub = n.subscribe("field/cut_area", 1, &DistanceMeasure::polygonCallback, this);
+    ros::Subscriber polygon_sub = n.subscribe("heatmap_area", 1, &DistanceMeasure::polygonCallback, this);
 
     marker_pub = n.advertise<visualization_msgs::Marker>("signal_marker", 0);
     interpol_marker_pub = n.advertise<visualization_msgs::MarkerArray>("interpol_marker", 0);
@@ -269,7 +269,6 @@ public:
     }
 }
 };
-
 
 }
 
