@@ -1,0 +1,66 @@
+define kinect ranger
+(
+sensor
+(
+range_max 6.5
+fov 58.0
+samples 640
+)
+# generic model properties
+color "black"
+size [ 0.06 0.15 0.03 ]
+)
+define turtlebot position
+(
+pose [ 0.0 0.0 0.0 0.0 ]
+odom_error [0.03 0.03 999999 999999 999999 0.02]
+size [ 0.2552 0.2552 0.40 ]
+origin [ 0.0 0.0 0.0 0.0 ]
+gui_nose 1
+drive "diff"
+color "gray"
+kinect(pose [ -0.1 0.0 -0.11 0.0 ])
+)
+
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  ranger_return 1
+)
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.02
+
+interval_sim 100  # simulation timestep in milliseconds
+
+
+window
+( 
+  size [ 745.000 448.000 ] 
+
+  rotate [ 0.000 -1.560 ]
+  scale 18.806 
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "willow"
+  bitmap "../maps/willow-full-0.05.pgm"
+  size [58.25 47.25 1.0]
+  pose [ -23.625 29.125 0 90.000 ]
+)
+
+# throw in a robot
+turtlebot( pose [ -28.610 13.562 0 99.786 ] name "turtle" color "blue")

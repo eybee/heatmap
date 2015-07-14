@@ -1,0 +1,4 @@
+float32 spacing
+float32 shepard_power
+---
+int64 b
