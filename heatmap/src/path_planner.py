@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 """
-/* Original work copyright team '"Moe" The Autonomous Lawnmower' - Auburn University
- * Modified work copyright 2015 Institute of Digital Communication Systems - Ruhr-University Bochum
+/* Original work Team '"Moe" The Autonomous Lawnmower' - Auburn University
+ * Modified work Copyright 2015 Institute of Digital Communication Systems - Ruhr-University Bochum
  * Modified by: Adrian Bauer
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of

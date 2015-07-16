@@ -16,6 +16,8 @@ find_package(catkin REQUIRED COMPONENTS
   costmap_2d
 )
 
+find_package(Boost REQUIRED COMPONENTS system thread)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -86,7 +88,6 @@ catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES heatmap
   CATKIN_DEPENDS roscpp rospy std_msgs message_runtime costmap_2d
-  DEPENDS 
 )
 
 ###########
@@ -97,7 +98,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(include)
 include_directories(
-  ${catkin_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS}
 )
 
 link_directories(lib)
@@ -121,8 +122,8 @@ add_executable(distance_measure src/distance_measure.cpp)
 add_dependencies(signal heatmap_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(signal ${catkin_LIBRARIES})
-target_link_libraries(signal :iwlib.so)
+ target_link_libraries(signal ${catkin_LIBRARIES})
+ target_link_libraries(signal :iwlib.so)
 
 target_link_libraries(signal_sim ${catkin_LIBRARIES})
 
@@ -191,13 +192,13 @@ install(FILES
 if(CATKIN_ENABLE_TESTING)
   # Find package test dependencies
   find_package(rostest REQUIRED)
-  # find_package(gtest)
+  find_package(gtest)
   # Add the test folder to the include directories
   include_directories(src/test)
   include_directories(${GTEST_INCLUDE_DIRS})
   link_directories(${GTEST_LIBRARY_DIRS})
   catkin_add_gtest(geometry_tools_tests src/test/geometry_tools_tests.cpp)
-  #target_link_libraries(geometry_tools_tests explore_costmap)
+  target_link_libraries(geometry_tools_tests ${Boost_LIBRARIES})
 endif()
 
 ## Add gtest based cpp test target and link libraries

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>heatmap</name>
-  <version>0.0.1</version>
+  <version>0.2.1</version>
   <description>The heatmap package allows you to create a WIFI-heatmap</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 

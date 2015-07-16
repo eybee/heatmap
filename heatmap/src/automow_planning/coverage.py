@@ -1,20 +1,6 @@
 #!/usr/bin/env python
 
 """
-/* Original work copyright team '"Moe" The Autonomous Lawnmower' - Auburn University
- *
- * This program is free software; you can redistribute it and/or modify it under the terms of
- * the GNU General Public License as published by the Free Software Foundation;
- * either version 3 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- * You should have received a copy of the GNU General Public License along with this program;
- * if not, see <http://www.gnu.org/licenses/>.
- *
- * This file is taken from the au_automow_common ROS stack
- **/
-
 This module contains code to plan coverage paths
 """
 

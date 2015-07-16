@@ -12,10 +12,11 @@
  *
  **/
 
-#include <heatmap/iwlib.h>
+
 #include <ros/ros.h>
 #include <heatmap/wifi_signal.h>
 #include <heatmap/signal_service.h>
+#include <heatmap/iwlib.h>
 
 namespace heatmap
 {
