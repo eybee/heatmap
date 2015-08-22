@@ -130,6 +130,16 @@ target_link_libraries(heatmap_client ${catkin_LIBRARIES})
 
 target_link_libraries(distance_measure ${catkin_LIBRARIES})
 
+add_dependencies(signal ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(signal_sim ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(goal_measure ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(heatmap_client ${catkin_EXPORTED_TARGETS})
+
+add_dependencies(distance_measure ${catkin_EXPORTED_TARGETS})
+
 #############
 ## Install ##
 #############
