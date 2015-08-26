@@ -2,8 +2,8 @@
 Changelog for package heatmap
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.4 (2015-08-26)
+------------------
 * fixed linking error
 * Contributors: Adrian Bauer
 
