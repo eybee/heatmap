@@ -98,7 +98,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
 
-link_directories(lib)
+link_directories(lib32 lib64)
 
 ## Declare a cpp library
 # add_library(heatmap
