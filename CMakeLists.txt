@@ -107,7 +107,7 @@ link_directories(lib32 lib64)
 ## Declare a cpp executable
 add_executable(signal src/signal.cpp)
 add_executable(signal_sim src/signal_sim.cpp)
-add_executable(goal_measure src/goal_measure.cpp)
+# add_executable(goal_measure src/goal_measure.cpp)
 add_executable(heatmap_client src/heatmap_client.cpp)
 add_executable(distance_measure src/distance_measure.cpp)
 
@@ -115,7 +115,7 @@ add_executable(distance_measure src/distance_measure.cpp)
 ## as an example, message headers may need to be generated before nodes
 add_dependencies(signal heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 add_dependencies(signal_sim heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
-add_dependencies(goal_measure heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+# add_dependencies(goal_measure heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 add_dependencies(heatmap_client heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 add_dependencies(distance_measure heatmap_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
@@ -123,7 +123,7 @@ add_dependencies(distance_measure heatmap_generate_messages_cpp ${catkin_EXPORTE
 target_link_libraries(signal ${catkin_LIBRARIES})
 target_link_libraries(signal :iwlib.so)
 target_link_libraries(signal_sim ${catkin_LIBRARIES})
-target_link_libraries(goal_measure ${catkin_LIBRARIES})
+# target_link_libraries(goal_measure ${catkin_LIBRARIES})
 target_link_libraries(heatmap_client ${catkin_LIBRARIES})
 target_link_libraries(distance_measure ${catkin_LIBRARIES})
 
@@ -146,7 +146,7 @@ install(DIRECTORY src/automow_planning/
 )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS signal signal_sim goal_measure heatmap_client distance_measure
+install(TARGETS signal signal_sim heatmap_client distance_measure
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
@@ -154,20 +154,19 @@ install(TARGETS signal signal_sim goal_measure heatmap_client distance_measure
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
   FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
 )
 
 install(DIRECTORY launch/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
 )
 
-install(DIRECTORY lib32/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/lib32
-)
+#install(DIRECTORY lib32/
+#  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/lib32
+#)
 
-install(DIRECTORY lib64/
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/lib64
-)
+#install(DIRECTORY lib64/
+#  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/lib64
+#)
 
 install(DIRECTORY move_base_config/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/move_base_config
